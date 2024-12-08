@@ -18,9 +18,11 @@
         <div class="mycard">
             <h1>Livros</h1>
             <ul>
-                {% for l in livros %}
-                <li>{{ l.nome }} | {{ l.autor }} | {{ l.ano }} </li>
-                {% endfor %}
+                <ul>
+                    {% for livro in livros %}
+                    <li onclick="window.location = 'livros/detalhes/{{ livro.id }}'"><em>Título:</em> {{ livro.titulo }} <br> <em>Autor:</em> {{ livro.autor }} </li>
+                    {% endfor %}
+                </ul>
             </ul>
         </div>
     </body>
