@@ -3,6 +3,9 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import UsuarioCreationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 def principal(request):
@@ -47,6 +50,7 @@ def livro_detalhes(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+# cadastro cria um registro do biblioteca.Usuario, não do user padrão
 def cadastro(request):
     if request.method == 'POST':
         form = UsuarioCreationForm(request.POST)
@@ -57,3 +61,21 @@ def cadastro(request):
     else:
         form = UsuarioCreationForm()
     return render(request, 'cadastro.html', {'form': form})
+
+# login funcionando pro user padrão do django, mas não pro biblioteca.Usuario
+# de resto funciona 100% (se testar com admin/admin, por exemplo)
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password) # por causa daqui
+            if user is not None:
+                login(request, user)
+                return redirect('principal')
+        else:
+            print(form)
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
