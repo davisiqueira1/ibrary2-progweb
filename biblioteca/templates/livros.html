@@ -1,29 +1,16 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="{% static 'mystyles.css' %}"> 
-        <title>Ibrary2 - Livros</title>
-    </head>
-    <body>
-        <div class="topnav">
-            <a href="/">PRINCIPAL</a> |
-            <a href="/livros">LIVROS</a> |
-            <a href="/dashboard">DASHBOARD</a> |
-            <a href="/auth/login">LOGIN</a> |
-            <a href="/auth/cadastro">CADASTRE-SE</a>
-        </div>
-        <div class="mycard">
-            <h1>Livros</h1>
-            <ul>
-                <ul>
-                    {% for livro in livros %}
-                    <li onclick="window.location = 'livros/detalhes/{{ livro.id }}'"><em>Título:</em> {{ livro.titulo }} <br> <em>Autor:</em> {{ livro.autor }} </li>
-                    {% endfor %}
-                </ul>
-            </ul>
-        </div>
-    </body>
-</html>
+{% block titulo %}
+    Portal Biblioteca - Livros
+{% endblock %}
+
+{% block conteudo %}
+    <div class="mycard">
+        <h1>Livros</h1>
+        <ul>
+            {% for livro in livros %}
+            <li onclick="window.location = 'livros/detalhes/{{ livro.id }}'"><em>Título:</em> {{ livro.titulo }} <br> <em>Autor:</em> {{ livro.autor }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
