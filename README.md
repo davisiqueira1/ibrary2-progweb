@@ -13,8 +13,8 @@
 
 ## Prerequisites
 
-- [Python](https://www.python.org/downloads/) (3.x)
-- [Django](https://www.djangoproject.com/download/) (5.x ou superior)
+- [Python](https://www.python.org/downloads/) (3.x+)
+- [Django](https://www.djangoproject.com/download/) (5.x+)
 
 ## Setup environment
 
