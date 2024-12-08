@@ -9,3 +9,5 @@ media
 *$py.class 
 
 venv/ 
+
+productionfiles/
