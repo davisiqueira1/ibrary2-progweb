@@ -29,6 +29,24 @@ def livro_detalhes(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+def livro_excluir(request, id):
+    livro = Livro.objects.get(id=id)
+    livro.delete()
+    return redirect('livros')
+
+def livro_editar(request, id):
+    livro = Livro.objects.get(id=id)
+    if request.method == 'POST':
+        form = LivroCreationForm(request.POST, instance=livro)
+        if form.is_valid():
+            form.save()
+            return redirect('livros')
+        else: print(form.errors)
+    else:
+        form = LivroCreationForm(instance=livro)
+
+    return render(request, 'livro_editar.html', {'form': form, 'livro': livro})
+
 def livro_cadastro(request):
     if request.method == 'POST':
         form = LivroCreationForm(request.POST)

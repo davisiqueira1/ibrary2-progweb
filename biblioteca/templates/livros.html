@@ -7,9 +7,19 @@
 {% block conteudo %}
     <div class="mycard">
         <h1>Livros</h1>
+        <form action="/livros/cadastro" method="get">
+            <input type="submit" value="Adicionar livro" name="add_livro" id="add_livro" />
+        </form>
         <ul>
             {% for livro in livros %}
-            <li onclick="window.location = 'livros/detalhes/{{ livro.id }}'"><em>Título:</em> {{ livro.nome }} <br> <em>Autor:</em> {{ livro.autor }} </li>
+            <li onclick="window.location = 'livros/detalhes/{{ livro.id }}'">
+                <div>
+                    <em>Título:</em> {{ livro.nome }} <br>
+                    <em>Autor:</em> {{ livro.autor }}
+                </div>
+                <div class="d-flex flex-column">
+                </div>
+            </li>
             {% endfor %}
         </ul>
     </div>

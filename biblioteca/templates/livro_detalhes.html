@@ -12,7 +12,11 @@
       <p><em>Descrição:</em> {{ livro.descricao }}</p>
       <p><em>Gênero:</em> {{ livro.genero }}</p>
       <p><em>ISBN:</em> {{ livro.isbn }}</p>
+      <button onclick="window.location = '/livros/excluir/{{livro.id}}'" type="button" class="btn btn-danger btn-sm">Excluir</button>
+      <button onclick="window.location = '/livros/editar/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Editar</button>
+      <button type="button" class="btn btn-primary btn-sm">Empréstimo</button>
     </div>
 
     <p><center>Volte para <a href="/livros">Livros</a></center></p>
+
 {% endblock %}
