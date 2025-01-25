@@ -5,24 +5,30 @@
 {% endblock %}
 
 {% block conteudo %}
-    <div class="mycard">
-        <h1>Livros</h1>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Livros</h1>
+
         {% if user.is_staff %}
-        <form action="/livros/cadastro" method="get">
-            <input type="submit" value="Adicionar livro" name="add_livro" id="add_livro" />
-        </form>
+        <div class="text-center mb-4">
+            <a href="/livros/cadastro" class="btn btn-primary ">Adicionar Livro</a>
+        </div>
         {% endif %}
-        <ul>
+
+        <div class="d-flex flex-column align-items-center">
             {% for livro in livros %}
-            <li onclick="window.location = 'livros/detalhes/{{ livro.id }}'">
-                <div>
-                    <em>Título:</em> {{ livro.nome }} <br>
-                    <em>Autor:</em> {{ livro.autor }}
+            <div class="card mb-3" style="width: 100%; max-width: 600px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" 
+                onclick="window.location = '/livros/detalhes/{{ livro.id }}'"
+                onmouseover="this.style.transform = 'scale(1.05)'; this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';"
+                onmouseout="this.style.transform = 'scale(1)'; this.style.boxShadow = 'none';">
+                <div class="card-body">
+                    <h5 class="card-title">{{ livro.nome }}</h5>
+                    <p class="card-text">
+                        <strong>Autor:</strong> {{ livro.autor }}<br>
+                        <strong>Gênero:</strong> {{ livro.genero }}
+                    </p>
                 </div>
-                <div class="d-flex flex-column">
-                </div>
-            </li>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}

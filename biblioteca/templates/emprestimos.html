@@ -5,20 +5,25 @@
 {% endblock %}
 
 {% block conteudo %}
-    <div class="mycard">
-        <h1>Empréstimos</h1>
-        <ul>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Empréstimos</h1>
+
+        <div class="d-flex flex-column align-items-center">
             {% for emprestimo in emprestimos %}
-            <li onclick="window.location = 'emprestimos/detalhes/{{ emprestimo.id }}'">
-                <div>
-                    <em>Livro:</em> {{ emprestimo.livro.nome }}
+            <div class="card mb-3" style="width: 100%; max-width: 600px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" 
+                onclick="window.location = 'emprestimos/detalhes/{{ emprestimo.id }}'"
+                onmouseover="this.style.transform = 'scale(1.05)'; this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';"
+                onmouseout="this.style.transform = 'scale(1)'; this.style.boxShadow = 'none';">
+                <div class="card-body">
+                    <h5 class="card-title">{{ emprestimo.livro.nome }}</h5>
                     {% if user.is_staff %}
-                    <br>
-                    <em>Usuário:</em> {{ emprestimo.usuario.username }}
+                    <p class="card-text">
+                        <strong>Usuário:</strong> {{ emprestimo.usuario.username }}
+                    </p>
                     {% endif %}
                 </div>
-            </li>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}

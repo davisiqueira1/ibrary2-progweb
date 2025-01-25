@@ -7,7 +7,21 @@
 {% endblock %}
 
 {% block conteudo %}
-    <div class="main">
-        <h1>iBrary2</h1>
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="display-4 text-primary">iBrary2</h1>
+            <p class="lead">A melhor plataforma para gerenciar seus livros e empréstimos!</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <p class="text-muted">Bem-vindo ao iBrary2, seu portal para visualizar, cadastrar e gerenciar livros na sua biblioteca. Com uma interface simples e eficiente, você pode facilmente explorar os livros disponíveis e gerenciar seus empréstimos de forma ágil. Acesse as opções abaixo para começar.</p>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="/auth/cadastro" class="btn btn-success">Cadastrar</a>
+            <a href="/auth/login" class="btn btn-primary">Login</a>
+        </div>
     </div>
 {% endblock %}

@@ -5,18 +5,27 @@
 {% endblock %}
 
 {% block conteudo %}
-    <div class="mycard">
-      <h1>Empréstimo</h1>
-      <p><em>Livro:</em> {{ emprestimo.livro.nome }}</p>
-      {% if user.is_staff %}
-      <p><em>Usuário:</em> {{ emprestimo.usuario.username }}</p>
-      {% endif %}
-      <p><em>Data de empréstimo:</em> {{ emprestimo.data_emprestimo }}</p>
-      <p><em>Data de devolução:</em> {{ emprestimo.data_devolucao }}</p>
-      <button onclick="window.location = '/emprestimos/cancelar/{{emprestimo.id}}'" type="button" class="btn btn-danger btn-sm">Cancelar</button>
-      <button onclick="window.location = '/emprestimos/estender/{{emprestimo.id}}'" type="button" class="btn btn-primary btn-sm">Estender empréstimo</button>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Detalhes do Empréstimo</h1>
+
+        <div class="card mb-3" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-body">
+                <p><strong>Livro:</strong> {{ emprestimo.livro.nome }}</p>
+                {% if user.is_staff %}
+                <p><strong>Usuário:</strong> {{ emprestimo.usuario.username }}</p>
+                {% endif %}
+                <p><strong>Data de empréstimo:</strong> {{ emprestimo.data_emprestimo }}</p>
+                <p><strong>Data de devolução:</strong> {{ emprestimo.data_devolucao }}</p>
+
+                <div class="d-flex gap-2">
+                    <button onclick="window.location = '/emprestimos/cancelar/{{emprestimo.id}}'" type="button" class="btn btn-danger btn-sm">Cancelar</button>
+                    <button onclick="window.location = '/emprestimos/estender/{{emprestimo.id}}'" type="button" class="btn btn-primary btn-sm">Estender empréstimo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <p>Volte para <a href="/emprestimos">Empréstimos</a></p>
+        </div>
     </div>
-
-    <p><center>Volte para <a href="/emprestimos">Empréstimos</a></center></p>
-
 {% endblock %}

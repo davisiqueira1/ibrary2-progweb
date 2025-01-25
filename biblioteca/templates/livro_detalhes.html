@@ -5,21 +5,32 @@
 {% endblock %}
 
 {% block conteudo %}
-    <div class="mycard">
-      <h1>Livro</h1>
-      <p><em>Título:</em> {{ livro.nome }}</p>
-      <p><em>Autor:</em> {{ livro.autor }}</p>
-      <p><em>Descrição:</em> {{ livro.descricao }}</p>
-      <p><em>Gênero:</em> {{ livro.genero }}</p>
-      <p><em>ISBN:</em> {{ livro.isbn }}</p>
-      {% if user.is_staff %}
-        <button onclick="window.location = '/livros/excluir/{{livro.id}}'" type="button" class="btn btn-danger btn-sm">Excluir</button>
-        <button onclick="window.location = '/livros/editar/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Editar</button>
-      {% else %}
-        <button onclick="window.location = '/emprestimos/cadastro/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Empréstimo</button>
-      {% endif %}
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Detalhes do Livro</h1>
+
+        <div class="card mb-3" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-body">
+                <h5 class="card-title">{{ livro.nome }}</h5>
+                <p class="card-text"><strong>Autor:</strong> {{ livro.autor }}</p>
+                <p class="card-text"><strong>Descrição:</strong> {{ livro.descricao }}</p>
+                <p class="card-text"><strong>Gênero:</strong> {{ livro.genero }}</p>
+                <p class="card-text"><strong>ISBN:</strong> {{ livro.isbn }}</p>
+
+                {% if user.is_staff %}
+                    <div class="d-flex gap-2">
+                        <button onclick="window.location = '/livros/excluir/{{livro.id}}'" type="button" class="btn btn-danger btn-sm">Excluir</button>
+                        <button onclick="window.location = '/livros/editar/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Editar</button>
+                    </div>
+                {% else %}
+                    <div class="text-center mt-4">
+                        <button onclick="window.location = '/emprestimos/cadastro/{{livro.id}}'" type="button" class="btn btn-primary">Solicitar Empréstimo</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <p>Volte para <a href="/livros">Livros</a></p>
+        </div>
     </div>
-
-    <p><center>Volte para <a href="/livros">Livros</a></center></p>
-
 {% endblock %}
