@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LivroCreationForm
 from .models import Livro, Emprestimo
 from django.utils.timezone import now
+from datetime import timedelta
 
 # Create your views here.
 def principal(request):
@@ -68,6 +69,22 @@ def emprestimos(request):
     }
     return HttpResponse(template.render(context, request))
 
+def emprestimo_cancelar(request, id):
+    emprestimo = Emprestimo.objects.get(id=id)
+    emprestimo.delete()
+    return redirect('emprestimos')
+
+def emprestimo_estender(request, id):
+    emprestimo = Emprestimo.objects.get(id=id)
+    emprestimo.data_devolucao = emprestimo.data_devolucao + timedelta(days=7)
+    emprestimo.save()
+
+    template = loader.get_template('emprestimo_detalhes.html')
+    context = {
+        'emprestimo': emprestimo,
+    }
+    return HttpResponse(template.render(context, request))
+
 def emprestimo_detalhes(request, id):
     emprestimo = Emprestimo.objects.get(id=id)
     template = loader.get_template('emprestimo_detalhes.html')
@@ -77,12 +94,13 @@ def emprestimo_detalhes(request, id):
     return HttpResponse(template.render(context, request))
 
 @login_required
-def cadastrar_emprestimo(request, id):
+def emprestimo_cadastrar(request, id):
     livro = get_object_or_404(Livro, id=id)
     emprestimo = Emprestimo.objects.create(
         livro=livro,
         usuario=request.user,
         data_emprestimo=now(),
+        data_devolucao=now() + timedelta(days=7),
     )
     emprestimo.save()
     return redirect("emprestimos")

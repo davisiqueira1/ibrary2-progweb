@@ -11,5 +11,8 @@ urlpatterns = [
     path('auth/cadastro/', views.cadastro, name='cadastro'),
     path('auth/login', views.login_view, name='login'),
     path('emprestimos', views.emprestimos, name='emprestimos'),
-    path('emprestimos/detalhes/<int:id>', views.emprestimo_detalhes, name='emprestimo_detalhes')
+    path('emprestimos/cadastro/<int:id>', views.emprestimo_cadastrar, name='emprestimo_cadastrar'),
+    path('emprestimos/detalhes/<int:id>', views.emprestimo_detalhes, name='emprestimo_detalhes'),
+    path('emprestimos/cancelar/<int:id>', views.emprestimo_cancelar, name='emprestimo_cancelar'),
+    path('emprestimos/estender/<int:id>', views.emprestimo_estender, name='emprestimo_estender'),
 ]

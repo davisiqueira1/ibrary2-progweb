@@ -10,8 +10,8 @@
       <p><em>Livro:</em> {{ emprestimo.livro.nome }}</p>
       <p><em>Data de empréstimo:</em> {{ emprestimo.data_emprestimo }}</p>
       <p><em>Data de devolução:</em> {{ emprestimo.data_devolucao }}</p>
-      <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
-      <button type="button" class="btn btn-primary btn-sm">Estender empréstimo</button>
+      <button onclick="window.location = '/emprestimos/cancelar/{{emprestimo.id}}'" type="button" class="btn btn-danger btn-sm">Cancelar</button>
+      <button onclick="window.location = '/emprestimos/estender/{{emprestimo.id}}'" type="button" class="btn btn-primary btn-sm">Estender empréstimo</button>
     </div>
 
     <p><center>Volte para <a href="/emprestimos">Empréstimos</a></center></p>

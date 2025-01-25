@@ -14,7 +14,7 @@
       <p><em>ISBN:</em> {{ livro.isbn }}</p>
       <button onclick="window.location = '/livros/excluir/{{livro.id}}'" type="button" class="btn btn-danger btn-sm">Excluir</button>
       <button onclick="window.location = '/livros/editar/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Editar</button>
-      <button type="button" class="btn btn-primary btn-sm">Empréstimo</button>
+      <button onclick="window.location = '/emprestimos/cadastro/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Empréstimo</button>
     </div>
 
     <p><center>Volte para <a href="/livros">Livros</a></center></p>
