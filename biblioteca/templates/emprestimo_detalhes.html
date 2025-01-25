@@ -8,6 +8,9 @@
     <div class="mycard">
       <h1>Empréstimo</h1>
       <p><em>Livro:</em> {{ emprestimo.livro.nome }}</p>
+      {% if user.is_staff %}
+      <p><em>Usuário:</em> {{ emprestimo.usuario.username }}</p>
+      {% endif %}
       <p><em>Data de empréstimo:</em> {{ emprestimo.data_emprestimo }}</p>
       <p><em>Data de devolução:</em> {{ emprestimo.data_devolucao }}</p>
       <button onclick="window.location = '/emprestimos/cancelar/{{emprestimo.id}}'" type="button" class="btn btn-danger btn-sm">Cancelar</button>

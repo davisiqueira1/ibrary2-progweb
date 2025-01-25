@@ -11,7 +11,11 @@
             {% for emprestimo in emprestimos %}
             <li onclick="window.location = 'emprestimos/detalhes/{{ emprestimo.id }}'">
                 <div>
-                    <em>Livro:</em> {{ emprestimo.livro.nome }} <br>
+                    <em>Livro:</em> {{ emprestimo.livro.nome }}
+                    {% if user.is_staff %}
+                    <br>
+                    <em>Usuário:</em> {{ emprestimo.usuario.username }}
+                    {% endif %}
                 </div>
             </li>
             {% endfor %}

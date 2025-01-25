@@ -12,9 +12,12 @@
       <p><em>Descrição:</em> {{ livro.descricao }}</p>
       <p><em>Gênero:</em> {{ livro.genero }}</p>
       <p><em>ISBN:</em> {{ livro.isbn }}</p>
-      <button onclick="window.location = '/livros/excluir/{{livro.id}}'" type="button" class="btn btn-danger btn-sm">Excluir</button>
-      <button onclick="window.location = '/livros/editar/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Editar</button>
-      <button onclick="window.location = '/emprestimos/cadastro/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Empréstimo</button>
+      {% if user.is_staff %}
+        <button onclick="window.location = '/livros/excluir/{{livro.id}}'" type="button" class="btn btn-danger btn-sm">Excluir</button>
+        <button onclick="window.location = '/livros/editar/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Editar</button>
+      {% else %}
+        <button onclick="window.location = '/emprestimos/cadastro/{{livro.id}}'" type="button" class="btn btn-primary btn-sm">Empréstimo</button>
+      {% endif %}
     </div>
 
     <p><center>Volte para <a href="/livros">Livros</a></center></p>

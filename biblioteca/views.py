@@ -17,6 +17,7 @@ def principal(request):
     template = loader.get_template('principal.html')
     return HttpResponse(template.render())
 
+@login_required
 def livros(request):
     template = loader.get_template('livros.html')
     context = {
@@ -24,6 +25,7 @@ def livros(request):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def livro_detalhes(request, id):
     livro = Livro.objects.get(id=id)
     template = loader.get_template('livro_detalhes.html')
@@ -32,11 +34,13 @@ def livro_detalhes(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def livro_excluir(request, id):
     livro = Livro.objects.get(id=id)
     livro.delete()
     return redirect('livros')
 
+@login_required
 def livro_editar(request, id):
     livro = Livro.objects.get(id=id)
     if request.method == 'POST':
@@ -50,6 +54,7 @@ def livro_editar(request, id):
 
     return render(request, 'livro_editar.html', {'form': form, 'livro': livro})
 
+@login_required
 def livro_cadastro(request):
     if request.method == 'POST':
         form = LivroCreationForm(request.POST)
@@ -61,30 +66,33 @@ def livro_cadastro(request):
         form = LivroCreationForm()
     return render(request, 'cadastro_livro.html', {'form': form})
 
+@login_required
 def emprestimos(request):
     template = loader.get_template('emprestimos.html')
-    emprestimos = Emprestimo.objects.filter(usuario=request.user)
+    if request.user.is_staff:
+        emprestimos = Emprestimo.objects.all()
+    else:
+        emprestimos = Emprestimo.objects.filter(usuario=request.user)
     context = {
         'emprestimos': emprestimos,
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def emprestimo_cancelar(request, id):
     emprestimo = Emprestimo.objects.get(id=id)
     emprestimo.delete()
     return redirect('emprestimos')
 
+@login_required
 def emprestimo_estender(request, id):
     emprestimo = Emprestimo.objects.get(id=id)
     emprestimo.data_devolucao = emprestimo.data_devolucao + timedelta(days=7)
     emprestimo.save()
 
-    template = loader.get_template('emprestimo_detalhes.html')
-    context = {
-        'emprestimo': emprestimo,
-    }
-    return HttpResponse(template.render(context, request))
+    return redirect('emprestimo_detalhes', id=emprestimo.id)
 
+@login_required
 def emprestimo_detalhes(request, id):
     emprestimo = Emprestimo.objects.get(id=id)
     template = loader.get_template('emprestimo_detalhes.html')
@@ -93,7 +101,7 @@ def emprestimo_detalhes(request, id):
     }
     return HttpResponse(template.render(context, request))
 
-# @login_required
+@login_required
 def emprestimo_cadastrar(request, id):
     livro = get_object_or_404(Livro, id=id)
     emprestimo = Emprestimo.objects.create(
@@ -133,6 +141,7 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('/')
