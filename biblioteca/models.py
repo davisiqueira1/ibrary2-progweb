@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
 
 class Livro(models.Model):
     nome = models.CharField(max_length=100)
@@ -22,30 +22,9 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-class Usuario(AbstractBaseUser):
-    nome = models.CharField(max_length=50)
-    admin = models.BooleanField(default=False)
-
-    objects = UsuarioManager()
-
-    USERNAME_FIELD = 'nome'
-
-    def __str__(self):
-        return self.nome
-
-    def has_perm(self, perm, obj=None):
-        return self.admin
-
-    def has_module_perms(self, app_label):
-        return True
-
-    @property
-    def is_staff(self):
-        return self.admin
-
 class Emprestimo(models.Model):
     usuario = models.ForeignKey(
-        Usuario,
+        User,
         on_delete=models.CASCADE,
         related_name='emprestimos'
     )
