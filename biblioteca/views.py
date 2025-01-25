@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from .forms import LivroCreationForm
 
 # Create your views here.
 def principal(request):
@@ -49,6 +50,17 @@ def livro_detalhes(request, id):
         'livro': livro,
     }
     return HttpResponse(template.render(context, request))
+
+def livro_cadastro(request):
+    if request.method == 'POST':
+        form = LivroCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('livros')
+        else: print(form.errors)
+    else:
+        form = LivroCreationForm()
+    return render(request, 'cadastro_livro.html', {'form': form})
 
 def cadastro(request):
     if request.method == 'POST':
