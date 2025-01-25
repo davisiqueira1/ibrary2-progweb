@@ -40,4 +40,4 @@ class Emprestimo(models.Model):
     data_devolucao = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.usuario.nome} - {self.livro.nome}'
+        return f'{self.usuario.username} - {self.livro.nome}'

@@ -1,13 +1,15 @@
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .forms import LivroCreationForm
-from .models import Livro
+from .models import Livro, Emprestimo
+from django.utils.timezone import now
 
 # Create your views here.
 def principal(request):
@@ -57,6 +59,25 @@ def livro_cadastro(request):
     else:
         form = LivroCreationForm()
     return render(request, 'cadastro_livro.html', {'form': form})
+
+def emprestimos(request):
+    template = loader.get_template('emprestimos.html')
+    emprestimos = Emprestimo.objects.filter(usuario=request.user)
+    context = {
+        'emprestimos': emprestimos,
+    }
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def cadastrar_emprestimo(request, id):
+    livro = get_object_or_404(Livro, id=id)
+    emprestimo = Emprestimo.objects.create(
+        livro=livro,
+        usuario=request.user,
+        data_emprestimo=now(),
+    )
+    emprestimo.save()
+    return redirect("emprestimos")
 
 def cadastro(request):
     if request.method == 'POST':

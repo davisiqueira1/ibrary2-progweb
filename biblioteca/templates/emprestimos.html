@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - Empréstimos
+{% endblock %}
+
+{% block conteudo %}
+    <div class="mycard">
+        <h1>Empréstimos</h1>
+        <ul>
+            {% for emprestimo in emprestimos %}
+            <li onclick="window.location = 'livros/detalhes/{{ emprestimo.livro.id }}'">
+                <div>
+                    <em>Livro:</em> {{ emprestimo.livro.nome }} <br>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
