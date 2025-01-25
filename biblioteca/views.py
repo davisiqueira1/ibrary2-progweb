@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -93,7 +93,7 @@ def emprestimo_detalhes(request, id):
     }
     return HttpResponse(template.render(context, request))
 
-@login_required
+# @login_required
 def emprestimo_cadastrar(request, id):
     livro = get_object_or_404(Livro, id=id)
     emprestimo = Emprestimo.objects.create(
@@ -111,7 +111,7 @@ def cadastro(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('principal')
+            return redirect('livros')
         else: print(form.errors)
     else:
         form = UserCreationForm()
@@ -126,9 +126,13 @@ def login_view(request):
             user = authenticate(username=username, password=password) # por causa daqui
             if user is not None:
                 login(request, user)
-                return redirect('principal')
+                return redirect('livros')
         else:
             print(form)
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')

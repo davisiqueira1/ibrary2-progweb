@@ -10,11 +10,15 @@
     </head>
     <body>
         <div class="topnav">
-            <a href="/">PRINCIPAL</a> |
-            <a href="/livros">LIVROS</a> |
-            <a href="/emprestimos">EMPRÉSTIMOS</a> |
-            <a href="/auth/login">LOGIN</a> |
-            <a href="/auth/cadastro">CADASTRE-SE</a>
+            {% if user.is_authenticated %}
+                <a href="/livros">LIVROS</a> |
+                <a href="/emprestimos">EMPRÉSTIMOS</a> |
+                <a href="/auth/logout">SAIR</a>
+            {% else %}
+                <a href="/">PRINCIPAL</a> |
+                <a href="/auth/login">LOGIN</a> |
+                <a href="/auth/cadastro">CADASTRE-SE</a>
+            {% endif %}
         </div>
         {% block conteudo %}
         {% endblock %}
