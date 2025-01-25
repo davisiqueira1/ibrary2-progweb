@@ -7,8 +7,11 @@
 {% block conteudo %}
     <div class="mycard">
       <h1>Livro</h1>
-      <p><em>Título:</em> {{ livro.titulo }}</p>
+      <p><em>Título:</em> {{ livro.nome }}</p>
       <p><em>Autor:</em> {{ livro.autor }}</p>
+      <p><em>Descrição:</em> {{ livro.descricao }}</p>
+      <p><em>Gênero:</em> {{ livro.genero }}</p>
+      <p><em>ISBN:</em> {{ livro.isbn }}</p>
     </div>
 
     <p><center>Volte para <a href="/livros">Livros</a></center></p>
