@@ -68,6 +68,14 @@ def emprestimos(request):
     }
     return HttpResponse(template.render(context, request))
 
+def emprestimo_detalhes(request, id):
+    emprestimo = Emprestimo.objects.get(id=id)
+    template = loader.get_template('emprestimo_detalhes.html')
+    context = {
+        'emprestimo': emprestimo,
+    }
+    return HttpResponse(template.render(context, request))
+
 @login_required
 def cadastrar_emprestimo(request, id):
     livro = get_object_or_404(Livro, id=id)

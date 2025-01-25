@@ -9,7 +9,7 @@
         <h1>Empréstimos</h1>
         <ul>
             {% for emprestimo in emprestimos %}
-            <li onclick="window.location = 'livros/detalhes/{{ emprestimo.livro.id }}'">
+            <li onclick="window.location = 'emprestimos/detalhes/{{ emprestimo.id }}'">
                 <div>
                     <em>Livro:</em> {{ emprestimo.livro.nome }} <br>
                 </div>

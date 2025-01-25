@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - Empréstimo - Detalhes
+{% endblock %}
+
+{% block conteudo %}
+    <div class="mycard">
+      <h1>Empréstimo</h1>
+      <p><em>Livro:</em> {{ emprestimo.livro.nome }}</p>
+      <p><em>Data de empréstimo:</em> {{ emprestimo.data_emprestimo }}</p>
+      <p><em>Data de devolução:</em> {{ emprestimo.data_devolucao }}</p>
+      <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+      <button type="button" class="btn btn-primary btn-sm">Estender empréstimo</button>
+    </div>
+
+    <p><center>Volte para <a href="/emprestimos">Empréstimos</a></center></p>
+
+{% endblock %}
